@@ -1,24 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from "axios";
+
 import './App.css';
 
 function App() {
+  const [username, setUsername] = useState("")
+  const [tweets, setTweets] = useState([])
+  const [error, setError] = useState([])
+
+  const onClick = async () => {
+    try {
+      const response = await axios.post("/tweets", { username });
+
+      const tweets = response.data.tweets
+      setTweets(tweets)
+      setError(false)
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  const handleOnChange = event => {
+    const { value } = event.target;
+    setUsername(value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input onChange={handleOnChange} value={username} onEnter></input>
+      <button onClick={onClick}>submit</button>
+
+      {
+        error ? <div>{error}</div> :
+          <ul>{
+            tweets.map(tweet => {
+              return (
+                <li key={tweet.id}>
+                  <span>{tweet.text}</span>
+                  <span>{tweet.created_at}</span>
+                </li>
+              )
+            })
+          }</ul>
+      }
+
     </div>
   );
 }
