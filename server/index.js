@@ -27,21 +27,19 @@ app.get("/", (req, res) => {
 app.post("/tweets", async (req, res) => {
 	const username = req.body.username;
 
-	const {
-		err,
-		data
-	} = await client.get("statuses/user_timeline", { screen_name: username, count: 10 })
+	try {
+		const response = await client.get("statuses/user_timeline", { screen_name: username, count: 10 })
 
-	if (err) res.json({
-		err,
-		tweets: null
-	})
-
-	res.json({
-		err: null,
-		length: data.length,
-		tweets: data
-	})
+		res.json({
+			error: null,
+			length: response.data.length,
+			tweets: response.data
+		})
+	} catch (error) {
+		res.json({
+			error: error.message
+		})
+	}
 })
 
 

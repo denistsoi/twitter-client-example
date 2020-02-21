@@ -6,17 +6,18 @@ import './App.css';
 function App() {
   const [username, setUsername] = useState("")
   const [tweets, setTweets] = useState([])
-  const [error, setError] = useState([])
+  const [error, setError] = useState("")
 
   const onClick = async () => {
     try {
       const response = await axios.post("/tweets", { username });
 
+      if (response.data.error) throw new Error(response.data.error)
       const tweets = response.data.tweets
       setTweets(tweets)
       setError(false)
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
   }
 
