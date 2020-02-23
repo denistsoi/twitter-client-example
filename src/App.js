@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
-
-import './App.css';
+import "./styles/app.css";
 
 function App() {
   const [username, setUsername] = useState("")
@@ -28,8 +27,10 @@ function App() {
 
   return (
     <div className="App">
-      <input onChange={handleOnChange} value={username} onEnter></input>
-      <button onClick={onClick}>submit</button>
+      <div className="m-4 bg-gray-200">
+        <input onChange={handleOnChange} value={username}></input>
+        <button onClick={onClick}>submit</button>
+      </div>
 
       {
         error ? <div>{error}</div> :
