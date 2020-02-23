@@ -14,12 +14,11 @@
     "twit": "^2.2.11"
   },
   "scripts": {
-    "dev": "run-p start:server start:app watch:styles",
+    "dev": "npm run build:styles && run-p watch:styles start:server start:app",
     "start:server": "node ./server/index.js",
     "test:server": "jest server/tests/*.js",
     "build:styles": "postcss src/styles/tailwind.css -o src/styles/app.css",
     "watch:styles": "postcss src/styles/tailwind.css -o src/styles/app.css -w",
-    "prestart": "npm run build:styles",
     "start:app": "react-scripts start",
     "build:app": "react-scripts build",
     "test:app": "react-scripts test",

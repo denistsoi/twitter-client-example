@@ -1,6 +1,6 @@
 const request = require("supertest")
 const assert = require("assert")
-const app = require("../")
+const app = require("../app")
 
 describe("tweets", () => {
   it("should retrieve tweets", () => {

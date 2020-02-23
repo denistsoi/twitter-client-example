@@ -1,12 +1,5 @@
-require("dotenv").config()
+const app = require("./app")
 
-const express = require("express");
-const tweetsRouter = require("./routes/tweets")
-
-const app = express();
-
-app.use(express.json())
-
-app.post("/tweets", tweetsRouter)
-
-module.exports = app;
+app.listen(3001, () => {
+  console.log("Server listening on PORT", 3001)
+})
